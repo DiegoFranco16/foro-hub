@@ -4,10 +4,7 @@ import com.forohub.api_fh.domain.curso.Curso;
 import com.forohub.api_fh.domain.respuesta.Respuesta;
 import com.forohub.api_fh.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +13,7 @@ import java.util.List;
 @Table(name = "topicos")
 @Entity(name = "Topico")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -33,7 +31,7 @@ public class Topico {
     @Column(updatable = false)
     private LocalDateTime fechaCreacion;
 
-    private String status;
+    private Boolean status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "autor_id")
@@ -46,8 +44,18 @@ public class Topico {
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Respuesta> respuestas = new ArrayList<>();
 
+    public Topico(DatosRegistroTopico datosRegistroTopico, Usuario autor, Curso curso) {
+        this.titulo = datosRegistroTopico.titulo();
+        this.mensaje = datosRegistroTopico.mensaje();
+        this.fechaCreacion = LocalDateTime.now();
+        this.status = true;
+        this.autor = autor;
+        this.curso = curso;
+    }
+/*
     @PrePersist
     protected void onCreate() {
         this.fechaCreacion = LocalDateTime.now();
-    }
+        this.status = true;
+    }*/
 }

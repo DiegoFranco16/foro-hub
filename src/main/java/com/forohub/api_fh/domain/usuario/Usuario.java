@@ -3,14 +3,12 @@ package com.forohub.api_fh.domain.usuario;
 import com.forohub.api_fh.domain.perfil.Perfil;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
