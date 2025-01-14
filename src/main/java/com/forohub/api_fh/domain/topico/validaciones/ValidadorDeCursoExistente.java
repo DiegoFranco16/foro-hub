@@ -13,8 +13,24 @@ public class ValidadorDeCursoExistente implements ValidadorDeListado {
 
     @Override
     public void validar(String curso, Integer anio) {
-        if (curso != null && !cursoRepository.existsByNombre(curso)) {
-            throw new ValidacionException("El curso '" + curso + "' no existe");
+        if (curso == null) {
+            return; // Si el curso es nulo, no hacemos nada.
+        }
+
+        boolean existe;
+
+        if (curso.startsWith("=")) {
+            // Validación exacta (se espera el prefijo "=" para identificar este caso)
+            String nombreExacto = curso.substring(1); // Eliminar el prefijo "="
+            existe = cursoRepository.existsByNombre(nombreExacto);
+        } else {
+            // Validación por coincidencia parcial
+            existe = !cursoRepository.findByNombreContaining(curso).isEmpty();
+        }
+
+        if (!existe) {
+            throw new ValidacionException("No se encontró ningún curso que coincida con: " + curso);
         }
     }
 }
+

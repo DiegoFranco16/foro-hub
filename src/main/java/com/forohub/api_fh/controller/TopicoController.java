@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 import java.util.Optional;
 
 
@@ -30,6 +32,9 @@ public class TopicoController {
     private RegistroDeTopicos registroDeTopicos;
     @Autowired
     private ListadoDeTopicos listadoDeTopicos;
+
+    @Autowired
+    private CursoRepository cursoRepository;
 
     @PostMapping
     @Transactional
@@ -48,6 +53,8 @@ public class TopicoController {
         var topicos = listadoDeTopicos.listar(curso, anio, paginacion);
         return ResponseEntity.ok(topicos);
     }
+
+
 
     @DeleteMapping("/{id}")
     @Transactional

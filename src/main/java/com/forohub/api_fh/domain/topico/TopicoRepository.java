@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface TopicoRepository extends JpaRepository<Topico, Long> {
 
+
     // Filtrar por curso y año
     @Query("SELECT t FROM Topico t WHERE t.curso.nombre IN :nombres AND YEAR(t.fechaCreacion) = :anio AND t.status = true")
     Page<Topico> findByCursoNombreInAndFechaCreacionYearAndStatusTrue(@Param("nombres") List<String> nombres, @Param("anio") Integer anio, Pageable pageable);
@@ -26,5 +27,17 @@ public interface TopicoRepository extends JpaRepository<Topico, Long> {
     Page<Topico> findByStatusTrue(Pageable pageable);
 
     boolean existsByTituloAndMensaje(String titulo, String mensaje);
+
+
+    // Filtrar por curso y año con coincidencias parciales
+    @Query("SELECT t FROM Topico t WHERE t.curso.nombre LIKE %:nombre% AND YEAR(t.fechaCreacion) = :anio AND t.status = true")
+    Page<Topico> findByCursoNombreContainingAndFechaCreacionYearAndStatusTrue(@Param("nombre") String nombre, @Param("anio") Integer anio, Pageable pageable);
+
+    // Filtrar por curso con coincidencias parciales
+    @Query("SELECT t FROM Topico t WHERE t.curso.nombre LIKE %:nombre% AND t.status = true")
+    Page<Topico> findByCursoNombreContainingAndStatusTrue(@Param("nombre") String nombre, Pageable pageable);
+
+
+
 }
 
