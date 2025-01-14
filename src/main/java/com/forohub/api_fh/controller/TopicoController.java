@@ -1,5 +1,6 @@
 package com.forohub.api_fh.controller;
 
+import com.forohub.api_fh.domain.ValidacionException;
 import com.forohub.api_fh.domain.curso.CursoRepository;
 import com.forohub.api_fh.domain.topico.*;
 import com.forohub.api_fh.domain.usuario.UsuarioRepository;
@@ -27,7 +28,8 @@ import java.net.URI;
 @RequestMapping("/topicos")
 //@SecurityRequirement(name = "bearer-key")
 public class TopicoController {
-
+    @Autowired
+    private TopicoRepository topicoRepository;
     @Autowired
     private RegistroDeTopicos registroDeTopicos;
     @Autowired
@@ -54,7 +56,24 @@ public class TopicoController {
         return ResponseEntity.ok(topicos);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DatosDetalleTopico> obtenerDetalleTopico(@PathVariable Long id) {
+        // Buscar el tópico por ID
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new ValidacionException("El tópico con ID " + id + " no existe"));
 
+        // Mapear los detalles del tópico al DTO
+        var detalleTopico = new DatosDetalleTopico(
+                topico.getTitulo(),
+                topico.getMensaje(),
+                topico.getFechaCreacion(),
+                topico.getStatus(),
+                topico.getAutor().getNombre(),
+                topico.getCurso().getNombre()
+        );
+
+        return ResponseEntity.ok(detalleTopico);
+    }
 
     @DeleteMapping("/{id}")
     @Transactional
