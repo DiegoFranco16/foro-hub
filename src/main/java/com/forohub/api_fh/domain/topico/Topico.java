@@ -47,15 +47,21 @@ public class Topico {
     public Topico(DatosRegistroTopico datosRegistroTopico, Usuario autor, Curso curso) {
         this.titulo = datosRegistroTopico.titulo();
         this.mensaje = datosRegistroTopico.mensaje();
-        this.fechaCreacion = LocalDateTime.now();
-        this.status = true;
+        //this.fechaCreacion = LocalDateTime.now();
+        //this.status = true;
         this.autor = autor;
         this.curso = curso;
     }
-/*
+
     @PrePersist
     protected void onCreate() {
         this.fechaCreacion = LocalDateTime.now();
         this.status = true;
-    }*/
+    }
+
+    public void desactivar() {
+        this.status = false;
+    }
+
+
 }

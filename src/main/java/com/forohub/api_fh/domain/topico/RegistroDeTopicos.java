@@ -46,11 +46,4 @@ public class RegistroDeTopicos {
                 curso.getNombre()
         );
     }
-
-    public void eliminar(Long id) {
-        if (!topicoRepository.existsById(id)) {
-            throw new ValidacionException("El tópico no existe");
-        }
-        topicoRepository.deleteById(id);
-    }
 }

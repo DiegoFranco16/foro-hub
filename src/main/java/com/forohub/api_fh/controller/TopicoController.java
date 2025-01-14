@@ -75,11 +75,35 @@ public class TopicoController {
         return ResponseEntity.ok(detalleTopico);
     }
 
+    // Eliminación lógica: Desactiva un tópico (status = false)
+    @PutMapping("/desactivar/{id}")
+    @Transactional
+    public ResponseEntity<String> desactivarTopico(@PathVariable Long id) {
+        // Verificar si el tópico existe
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new ValidacionException("El tópico con ID " + id + " no existe"));
+
+        // Actualizar el estado del tópico
+        topico.setStatus(false);
+        topicoRepository.save(topico);
+
+        return ResponseEntity.ok("Tópico desactivado con éxito");
+    }
+
+    // Eliminación física: Elimina el tópico de la base de datos
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity eliminar(@PathVariable Long id) {
-        registroDeTopicos.eliminar(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> eliminarTopico(@PathVariable Long id) {
+        // Verificar si el tópico existe
+        if (!topicoRepository.existsById(id)) {
+            throw new ValidacionException("El tópico con ID " + id + " no existe");
+        }
+
+        // Eliminar el tópico físicamente
+        topicoRepository.deleteById(id);
+
+        return ResponseEntity.ok("Tópico eliminado con éxito");
     }
+
 }
 
