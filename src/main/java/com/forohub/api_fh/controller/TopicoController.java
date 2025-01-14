@@ -34,6 +34,8 @@ public class TopicoController {
     private RegistroDeTopicos registroDeTopicos;
     @Autowired
     private ListadoDeTopicos listadoDeTopicos;
+    @Autowired
+    private ActualizacionDeTopicos actualizacionDeTopicos;
 
     @Autowired
     private CursoRepository cursoRepository;
@@ -103,6 +105,14 @@ public class TopicoController {
         topicoRepository.deleteById(id);
 
         return ResponseEntity.ok("Tópico eliminado con éxito");
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DatosListadoTopico> actualizar(@PathVariable Long id,
+                                                         @RequestBody @Valid DatosActualizarTopico datos) {
+        var datosActualizados = actualizacionDeTopicos.actualizar(id, datos);
+        return ResponseEntity.ok(datosActualizados);
     }
 
 }

@@ -12,7 +12,6 @@ public class ValidadorDuplicadosTopico implements ValidadorDeTopico {
     @Autowired
     private TopicoRepository topicoRepository;
 
-
     @Override
     public void validar(DatosRegistroTopico datos) {
         if (topicoRepository.existsByTituloAndMensaje(datos.titulo(), datos.mensaje())) {
