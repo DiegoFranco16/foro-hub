@@ -37,9 +37,11 @@ public class Respuesta {
     @JoinColumn(name = "autor_id")
     private Usuario autor;
 
+
     @PrePersist
     protected void onCreate() {
         this.fechaCreacion = LocalDateTime.now();
+        this.solucion = false;
     }
 }
 

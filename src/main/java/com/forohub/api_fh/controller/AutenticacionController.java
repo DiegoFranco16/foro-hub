@@ -24,6 +24,15 @@ public class AutenticacionController {
     @Autowired
     private TokenService tokenService;
 
+    @PostMapping
+    public ResponseEntity<DatosJWTToken> realizarLogin(@RequestBody @Valid DatosLogin datos) {
+        var authToken = new UsernamePasswordAuthenticationToken(datos.correoElectronico(), datos.contrasena());
+        var usuarioAutenticado = authenticationManager.authenticate(authToken);
+        var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
+        return ResponseEntity.ok(new DatosJWTToken(JWTtoken));
+    }
+
+    //Otra forma de hacerlo
 //    @PostMapping
 //    public ResponseEntity<DatosJWTToken> login(@RequestBody @Valid DatosLogin datosLogin) {
 //        var authenticationToken = new UsernamePasswordAuthenticationToken(datosLogin.correoElectronico(), datosLogin.contrasena());
@@ -34,15 +43,5 @@ public class AutenticacionController {
 //
 //        return ResponseEntity.ok(new DatosJWTToken(token));
 //    }
-
- //Otra forma de hacerlo
-    @PostMapping
-    public ResponseEntity<DatosJWTToken> realizarLogin(@RequestBody @Valid DatosLogin datos) {
-        var authToken = new UsernamePasswordAuthenticationToken(datos.correoElectronico(), datos.contrasena());
-        var usuarioAutenticado = authenticationManager.authenticate(authToken);
-        var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
-        return ResponseEntity.ok(new DatosJWTToken(JWTtoken));
-    }
-
 }
 

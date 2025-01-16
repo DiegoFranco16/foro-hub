@@ -27,8 +27,8 @@ public class SecurityConfigurations {
                 .cors(c -> c.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers("/topicos/**").hasAuthority("ROLE_USER") // Verifica que se permite ROLE_USER
                         .anyRequest().authenticated()
                 )

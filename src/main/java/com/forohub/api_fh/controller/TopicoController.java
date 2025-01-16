@@ -3,6 +3,7 @@ package com.forohub.api_fh.controller;
 import com.forohub.api_fh.domain.ValidacionException;
 import com.forohub.api_fh.domain.curso.CursoRepository;
 import com.forohub.api_fh.domain.topico.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/topicos")
-//@SecurityRequirement(name = "bearer-key")
-
+@SecurityRequirement(name = "bearer-key")
 public class TopicoController {
     @Autowired
     private TopicoRepository topicoRepository;
