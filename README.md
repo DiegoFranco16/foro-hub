@@ -3,6 +3,7 @@
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0.0-brightgreen)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
+![Status](https://img.shields.io/badge/status-en%20desarrollo-yellow)
 
 ForoHub es una aplicación backend desarrollada en Java utilizando Spring Boot para gestionar un foro interactivo. Incluye funcionalidades para crear, listar, actualizar y eliminar información relacionada con usuarios, tópicos y respuestas, con soporte de autenticación basada en JWT y seguridad mediante perfiles.
 
