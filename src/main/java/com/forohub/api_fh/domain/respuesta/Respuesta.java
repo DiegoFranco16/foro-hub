@@ -3,16 +3,14 @@ package com.forohub.api_fh.domain.respuesta;
 import com.forohub.api_fh.domain.topico.Topico;
 import com.forohub.api_fh.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Table(name = "respuestas")
 @Entity(name = "Respuesta")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -37,7 +35,11 @@ public class Respuesta {
     @JoinColumn(name = "autor_id")
     private Usuario autor;
 
-
+    public Respuesta(DatosRegistroRespuesta datos, Usuario autor, Topico topico) {
+        this.mensaje = datos.mensaje();
+        this.autor = autor;
+        this.topico = topico;
+    }
     @PrePersist
     protected void onCreate() {
         this.fechaCreacion = LocalDateTime.now();

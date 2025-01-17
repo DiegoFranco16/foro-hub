@@ -36,6 +36,13 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "perfil_id")
     private Perfil perfil;
 
+    public Usuario(String nombre, String correoElectronico, String contrasena, Perfil perfil) {
+        this.nombre = nombre;
+        this.correoElectronico = correoElectronico;
+        this.contrasena = contrasena;
+        this.perfil = perfil;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
