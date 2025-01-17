@@ -37,7 +37,7 @@ ForoHub es una aplicación backend desarrollada en Java utilizando Spring Boot p
 
 1. Clona este repositorio:
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
+   git clone https://github.com/DiegoFranco16/foro-hub.git
    ```
 2. Configura tu base de datos en el archivo `application.properties`:
    ```properties
